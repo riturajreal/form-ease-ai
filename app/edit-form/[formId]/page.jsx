@@ -44,15 +44,15 @@ const EditForm = ({params}) => { // params return form ID
   <h2 onClick={()=> router.back()} className='flex gap-2 items-center my-5 cursor-pointer hover:font-semibold transition-all'>
     <ArrowLeft/> Back
   </h2>
-    <div className='grid grid-cols-1 md:grid-cols-3'>
+    <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
 
     {/* Controller */}
-      <div>
+      <div className='p-4 border rounded-lg shadow-md'>
         Controller 
       </div>
 
     {/* Form */}
-      <div className='md:col-span-2'>
+      <div className='md:col-span-2  p-4 h-screen border rounded-lg'>
       Form
       </div>
     </div>
