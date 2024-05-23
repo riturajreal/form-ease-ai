@@ -6,6 +6,7 @@ import { and, eq } from 'drizzle-orm'
 import { ArrowLeft } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React, { useState, useEffect } from 'react'
+import FormUi from '../_components/FormUi'
 
 const EditForm = ({params}) => { // params return form ID
 
@@ -35,7 +36,7 @@ const EditForm = ({params}) => { // params return form ID
     // update jsonForm hook -- parse json
     setJsonForm(JSON.parse(result[0].jsonform));
 
-    // console.log(JSON.parse(result[0].jsonform));
+    console.log(JSON.parse(result[0].jsonform));
     
   }
 
@@ -47,13 +48,13 @@ const EditForm = ({params}) => { // params return form ID
     <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
 
     {/* Controller */}
-      <div className='p-4 border rounded-lg shadow-md'>
+      <div className='p-5 border rounded-lg shadow-md'>
         Controller 
       </div>
 
     {/* Form */}
-      <div className='md:col-span-2  p-4 h-screen border rounded-lg'>
-      Form
+      <div className='md:col-span-2  p-5 h-screen border rounded-lg flex items-center justify-center'>
+      <FormUi jsonForm={jsonForm}/>
       </div>
     </div>
     
