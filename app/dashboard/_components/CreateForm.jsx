@@ -21,7 +21,7 @@ import { useRouter } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
 
   
-const PROMPT = ", On the basis of description please give form in json format with form title, form subheading with form having Form field, form name, placeholder name, and form label, fieldType, field required In Json format";
+const PROMPT = ", On the basis of description please give form in json format with form title, form subheading with form having Form field, form name, placeholder, name, form label, field type, field required In Json format";
 
 // create new form
 const CreateForm = () => {
