@@ -11,10 +11,8 @@ import {
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/components/ui/checkbox";
 import FieldEdit from "./FieldEdit";
-import { CloudCog } from "lucide-react";
-
 
 const FormUi = ({ jsonForm }) => {
   return (
@@ -24,14 +22,12 @@ const FormUi = ({ jsonForm }) => {
         {jsonForm?.formSubheading}
       </h3>
 
-      {jsonForm?.formFields?.map((field, index) => (
-        <div className="flex items-center gap-2">
+      {jsonForm?.fields?.map((field, index) => (
+        <div key={index} className="flex items-center gap-2">
           {/* SELECT FIELD TYPE */}
-          {field?.fieldType == "select" ? 
+          {field?.fieldType == "select" ? (
             <div className="my-3 w-full">
-              <label className="text-xs text-gray-500">
-                {field?.formLabel}
-              </label>
+              <label className="text-xs text-gray-500">{field.label}</label>
               <Select>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder={field.placeholder} />
@@ -45,65 +41,47 @@ const FormUi = ({ jsonForm }) => {
                 </SelectContent>
               </Select>
             </div>
-
-
-           : field.fieldType === "radio" ? 
+          ) : field.fieldType == "radio" ? (
             <div className="my-3 w-full">
-            <label className="text-xs text-gray-500">
-               {field?.fieldLabel}
-              </label>
+              <label className="text-xs text-gray-500">{field.label}</label>
               <RadioGroup>
-              {field?.options?.map((item,index)=>(
-                <div className="flex items-center space-x-4">
-                  <RadioGroupItem value={item?.label} id={item?.label} />
-                  <Label htmlFor={item?.label}>{item?.label}</Label>
-                </div>
-              ))}
+                {field?.options?.map((item, index) => (
+                  <div key={index} className="flex items-center space-x-4">
+                    <RadioGroupItem value={item.label} id={item.label} />
+                    <Label htmlFor={item.label}>{item.label}</Label>
+                  </div>
+                ))}
               </RadioGroup>
             </div>
-
-            : field.fieldType=='checkbox' ?
+          ) : field.fieldType == "checkbox" ? (
             <div className="my-3 w-full">
-            <label className="text-xs text-gray-500">
-               {field?.formLabel}
-              </label>
-             
-             {field?.options?field?.options?.map((item,index)=>(
-              <div className="flex items-center space-x-2">
-                <Checkbox/>
-                <h2 className="text-sm">{item}</h2>
-
-              </div>
-             ))
-             
-            
-             : <div className="flex items-center space-x-2">
-                <Checkbox/>
-                <h2 className="text-sm">{item}</h2>
-
-              </div>
-             }
+              <label className="text-xs text-gray-500">{field?.label}</label>
+              {field?.options ? (
+                field?.options?.map((item, index) => (
+                  <div key={index} className="flex gap-2 items-center">
+                    <Checkbox />
+                    <h2>{item.label ? item.label : item}</h2>
+                  </div>
+                ))
+              ) : (
+                <div className="flex gap-2 items-center">
+                  <Checkbox />
+                  <h2>{field.label}</h2>
+                </div>
+              )}
             </div>
-            
-            
-           :  
-           <div className="my-3 w-full">
-              <label className="text-xs text-gray-500">
-                {field?.formLabel}
-              </label>
+          ) : (
+            <div className="my-3 w-full">
+              <label className="text-xs text-gray-500">{field?.label}</label>
               <Input
                 type={field?.fieldType}
-                placeholder={field?.placeholderName}
+                placeholder={field?.placeholder}
                 name={field?.fieldName}
               />
             </div>
-          
-          } 
+          )}
           <div>
-            <FieldEdit 
-            defaultValue={field}
-            onUpdate={(value)=> console.log}
-            />
+            <FieldEdit defaultValue={field}/>
           </div>
         </div>
       ))}

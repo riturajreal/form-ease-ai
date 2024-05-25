@@ -24,7 +24,7 @@ const FieldEdit = ({defaultValue, onUpdate}) => {
             <div className='flex flex-col gap-4'>
             <div>
                 <label className='text-xs'>Label Name</label>
-                <Input type='text' defaultValue={defaultValue.formLabel}
+                <Input type='text' defaultValue={defaultValue.label}
                     onChange={(e)=>setLabel(e.target.value)}
                 />
             </div>
@@ -38,7 +38,7 @@ const FieldEdit = ({defaultValue, onUpdate}) => {
 
             <Button size='sm'
             onClick={()=> onUpdate({
-                formLabel:label,
+                label:label,
                 placeholder:placeholder
             })}
             >Update</Button>
