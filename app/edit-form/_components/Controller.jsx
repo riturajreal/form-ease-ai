@@ -7,15 +7,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import Themes from '@/app/_data/Themes'
+import Themes from "@/app/_data/Themes";
 import GradientBg from "@/app/_data/GradientBg";
 import { Button } from "@/components/ui/button";
 import Style from "@/app/_data/Style";
 
-
-
-const Controller = ({selectedTheme, selectedBackground, selectedStyle}) => {
-
+const Controller = ({ selectedTheme, selectedBackground, selectedStyle }) => {
   const [showMore, setShowMore] = useState(6);
 
   return (
@@ -63,13 +60,13 @@ const Controller = ({selectedTheme, selectedBackground, selectedStyle}) => {
       {/* Background Selection Controller */}
       <h2 className="mt-8 mb-4">Backgrounds</h2>
 
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-2 gap-5">
         {GradientBg.map(
           (bg, index) =>
-            (index < showMore) && (
+            index < showMore && (
               <div
                 key={index}
-                onClick={()=>selectedBackground(bg.gradient) }
+                onClick={() => selectedBackground(bg.gradient)}
                 className="w-full h-[70px] aspect-square rounded-lg
     hover:border-black hover:border-2 flex items-center justify-center cursor-pointer"
                 style={{ background: bg.gradient }}
@@ -78,33 +75,40 @@ const Controller = ({selectedTheme, selectedBackground, selectedStyle}) => {
               </div>
             )
         )}
-
       </div>
 
-      <Button variant="ghost" size="sm" 
-      className='w-full mt-4'
-      onClick={()=> setShowMore(showMore>6?6 : 20)}
-      > {showMore>6 ? 'Less' : 'Show More'}
-        </Button>
+      <Button
+        variant="ghost"
+        size="sm"
+        className="w-full mt-4"
+        onClick={() => setShowMore(showMore > 6 ? 6 : 20)}
+      >
+        {" "}
+        {showMore > 6 ? "Less" : "Show More"}
+      </Button>
 
-
-                {/* Style Selection Controller  */}
-                <div>
-          <label>Style</label>
-          <div className='grid grid-cols-3  gap-3'>
-            {Style.map((item,index)=>(
-                <div>
-              <div className='cursor-pointer hover:border-2 rounded-lg' onClick={()=>selectedStyle(item)}>
-                <img src={item.img} width={600} height={80} className='rounded-lg'/>
-              
+      {/* Style Selection Controller  */}
+      <div className="mt-8">
+        <label>Style</label>
+        <div className="grid grid-cols-3 gap-3 mt-4">
+          {Style.map((item, index) => (
+            <div>
+              <div
+                className="cursor-pointer hover:border-2 rounded-lg"
+                onClick={() => selectedStyle(item)}
+              >
+                <img
+                  src={item.img}
+                  width={600}
+                  height={80}
+                  className="rounded-lg"
+                />
               </div>
-                <h2 className='text-center'>{item.name}</h2>
-                </div>
-            ))}
-          </div>
+              <h2 className="text-center">{item.name}</h2>
+            </div>
+          ))}
         </div>
-
-
+      </div>
     </div>
   );
 };

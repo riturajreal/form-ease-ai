@@ -3,12 +3,14 @@ import { db } from "@/configs";
 import { JsonForms } from "@/configs/schema";
 import { useUser } from "@clerk/nextjs";
 import { and, eq } from "drizzle-orm";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Share2, SquareArrowOutUpRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import FormUi from "../_components/FormUi";
 import { toast } from "sonner";
 import Controller from "../_components/Controller";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const EditForm = ({ params }) => {
   // params return form ID
@@ -138,12 +140,24 @@ const EditForm = ({ params }) => {
 
   return (
     <div className="p-10">
+
+    <div className="flex items-center justify-between">
       <h2
         onClick={() => router.back()}
         className="flex gap-2 items-center my-5 cursor-pointer hover:font-semibold transition-all"
       >
         <ArrowLeft /> Back
       </h2>
+
+{/* Controls */}
+      <div className="flex items-center gap-2">
+      <Link href={'/aiform/'+record?.id} target='_blank'>
+      <Button variant='outline' className='flex items-center gap-2'><SquareArrowOutUpRight className="h-5 w-5"/> Live Preview</Button>
+      </Link>
+       
+        <Button className='flex items-center gap-2 bg-gray-900 hover:bg-gray-950'><Share2 className="h-5 w-5"/>Share</Button>
+      </div>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
         {/* Controller */}
