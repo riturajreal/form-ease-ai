@@ -10,10 +10,11 @@ import {
 import Themes from '@/app/_data/Themes'
 import GradientBg from "@/app/_data/GradientBg";
 import { Button } from "@/components/ui/button";
+import Style from "@/app/_data/Style";
 
 
 
-const Controller = ({selectedTheme, selectedBackground}) => {
+const Controller = ({selectedTheme, selectedBackground, selectedStyle}) => {
 
   const [showMore, setShowMore] = useState(6);
 
@@ -85,6 +86,24 @@ const Controller = ({selectedTheme, selectedBackground}) => {
       onClick={()=> setShowMore(showMore>6?6 : 20)}
       > {showMore>6 ? 'Less' : 'Show More'}
         </Button>
+
+
+                {/* Style Selection Controller  */}
+                <div>
+          <label>Style</label>
+          <div className='grid grid-cols-3  gap-3'>
+            {Style.map((item,index)=>(
+                <div>
+              <div className='cursor-pointer hover:border-2 rounded-lg' onClick={()=>selectedStyle(item)}>
+                <img src={item.img} width={600} height={80} className='rounded-lg'/>
+              
+              </div>
+                <h2 className='text-center'>{item.name}</h2>
+                </div>
+            ))}
+          </div>
+        </div>
+
 
     </div>
   );

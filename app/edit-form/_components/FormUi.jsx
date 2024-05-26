@@ -15,11 +15,16 @@ import { Checkbox } from "@/components/ui/checkbox";
 import FieldEdit from "./FieldEdit";
 import { Button } from "@/components/ui/button";
 
-const FormUi = ({ jsonForm, onFieldUpdate, deleteField, selectedTheme, selectedBackground }) => {
+const FormUi = ({ jsonForm, onFieldUpdate, deleteField, selectedTheme, selectedStyle }) => {
 
 
   return (
-    <div className="border rounded-md p-5 md:w-[600px]" data-theme={selectedTheme}>
+    <div className="border rounded-md p-5 md:w-[600px]" data-theme={selectedTheme} 
+    style={{
+      boxShadow: selectedStyle?.key=='boxshadow'&& '5px 5px 0px black',
+      border:selectedStyle?.key=='border'&&selectedStyle.value
+    }}
+     >
       <h2 className="font-bold text-center text-2xl">{jsonForm?.formTitle}</h2>
       <h3 className="text-sm text-gray-500 mb-5 text-center">
         {jsonForm?.formHeading}

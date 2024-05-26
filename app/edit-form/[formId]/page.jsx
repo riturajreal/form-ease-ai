@@ -10,7 +10,6 @@ import FormUi from "../_components/FormUi";
 import { toast } from "sonner";
 import Controller from "../_components/Controller";
 
-
 const EditForm = ({ params }) => {
   // params return form ID
 
@@ -30,13 +29,13 @@ const EditForm = ({ params }) => {
   const [record, setRecord] = useState([]);
 
   // theme
-  const [selectedTheme, setSelectedTheme]= useState('light');
+  const [selectedTheme, setSelectedTheme] = useState("light");
 
-   // formBackground
-   const [selectedBackground, setSelectedBackground]= useState();
-
-
+  // formBackground
+  const [selectedBackground, setSelectedBackground] = useState();
   
+  // Style
+  const [selectedStyle, setSelectedStyle] = useState();
 
   useEffect(() => {
     user && GetFormData();
@@ -60,9 +59,11 @@ const EditForm = ({ params }) => {
     // update jsonForm hook -- parse json
     setJsonForm(JSON.parse(result[0].jsonform));
     setRecord(result[0]);
+    setSelectedTheme(result[0].theme);
+    setSelectedBackground(result[0].background);
+    setSelectedStyle(JSON.parse(result[0].style))
     // console.log(JSON.parse(result[0].jsonform));
   };
-
 
   // EDIT
   // onFieldUpdate --> change value according to index
@@ -86,33 +87,54 @@ const EditForm = ({ params }) => {
   };
 
   // Store Changes in DB
-  const updateJsonFormInDb = async()=> {
-    const result = await db.update(JsonForms)
-    .set({
-      jsonform:jsonForm
-    })
-    .where(
-      and (
-      eq(JsonForms.id, record.id )
-    , eq(JsonForms.createdBy,user?.primaryEmailAddress?.emailAddress)
-  )
-);
-    toast('Updated Successfully');
-    // console.log(result);
-  }
+  const updateJsonFormInDb = async () => {
+    const result = await db
+      .update(JsonForms)
+      .set({
+        jsonform: jsonForm,
+      })
+      .where(
+        and(
+          eq(JsonForms.id, record.id),
+          eq(JsonForms.createdBy, user?.primaryEmailAddress?.emailAddress)
+        )
+      )
+      .returning({ id: JsonForms.id });
 
+    toast("Updated Successfully");
+    // console.log(result);
+  };
 
   // DELETE
-  const deleteField=(indexToRemove)=> {
-    const result = jsonForm.fields.filter((item, index)=> index != indexToRemove);
+  const deleteField = (indexToRemove) => {
+    const result = jsonForm.fields.filter(
+      (item, index) => index != indexToRemove
+    );
     // console.log(result);
 
     jsonForm.fields = result;
     setUpdateTrigger(Date.now);
-    toast('Deleted Successfully');
-  }
+    toast("Deleted Successfully");
+  };
 
+  // FOR THEME
+  const updateControllerFields = async (value, columnName) => {
+    const result = await db
+      .update(JsonForms)
+      .set({
+        [columnName] : value
+      })
+      .where(
+        and(
+          eq(JsonForms.id, record.id),
+          eq(JsonForms.createdBy, user?.primaryEmailAddress?.emailAddress)
+        )
+      )
+      .returning({ id: JsonForms.id });
 
+    toast('Updated Successfully');
+    console.log(result);
+  };
 
   return (
     <div className="p-10">
@@ -125,22 +147,39 @@ const EditForm = ({ params }) => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* Controller */}
         <div className="p-5 border rounded-lg shadow-lg">
-          <Controller 
-          selectedTheme={(value)=> setSelectedTheme(value) }
-          selectedBackground={(value)=>setSelectedBackground(value)}
+          <Controller
 
+            selectedTheme={(value) => {
+              // to reflect in DB
+              updateControllerFields(value, "theme");
+              // set theme
+              setSelectedTheme(value);
+            }}
+
+            selectedBackground={(value) => {
+              updateControllerFields(value, "background");
+            setSelectedBackground(value)}
+            }
+
+            selectedStyle={(value) => {
+              setSelectedStyle(value);
+              updateControllerFields(value, 'style')
+            }}
           />
         </div>
 
         {/* Form */}
-        <div className="md:col-span-2 p-5 border rounded-lg w-full flex justify-center items-center"
-        style={{backgroundImage : selectedBackground}}
+        <div
+          className="md:col-span-2 p-5 border rounded-lg w-full flex justify-center items-center"
+          style={{ backgroundImage: selectedBackground }}
         >
-          <FormUi jsonForm={jsonForm} 
-          selectedTheme = {selectedTheme}
-          onFieldUpdate={onFieldUpdate}
-          deleteField={(index)=> deleteField(index)}
-           />
+          <FormUi
+            jsonForm={jsonForm}
+            selectedTheme={selectedTheme}
+            selectedStyle={selectedStyle}
+            onFieldUpdate={onFieldUpdate}
+            deleteField={(index) => deleteField(index)}
+          />
         </div>
       </div>
     </div>
