@@ -11,8 +11,8 @@ import { Button } from '@/components/ui/button';
 
 const FieldEdit = ({defaultValue, onUpdate}) => {
 
-    const [label, setLabel] = useState();
-    const [placeholder, setPlaceholder] = useState();
+    const [label, setLabel] = useState(defaultValue?.label);
+    const [placeholder, setPlaceholder] = useState(defaultValue?.placeholder);
 
 
   return (
@@ -36,7 +36,7 @@ const FieldEdit = ({defaultValue, onUpdate}) => {
                 />
             </div>
 
-            <Button size='sm'
+            <Button size='sm' className='mt-3'
             onClick={()=>onUpdate({
                 label:label,
                 placeholder:placeholder
