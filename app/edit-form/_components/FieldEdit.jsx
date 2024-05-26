@@ -20,8 +20,8 @@ const FieldEdit = ({defaultValue, onUpdate}) => {
       <Popover>
         <PopoverTrigger><Edit className="h-5 w-5 text-gray-500 " /></PopoverTrigger>
         <PopoverContent>
-            <h2 className='font-semibold text-sm'>Edit Fields</h2>
-            <div className='flex flex-col gap-4'>
+            <h2 className='font-semibold '>Edit Fields</h2>
+            <div className='flex flex-col gap-2'>
             <div>
                 <label className='text-xs'>Label Name</label>
                 <Input type='text' defaultValue={defaultValue.label}
@@ -37,7 +37,7 @@ const FieldEdit = ({defaultValue, onUpdate}) => {
             </div>
 
             <Button size='sm'
-            onClick={()=> onUpdate({
+            onClick={()=>onUpdate({
                 label:label,
                 placeholder:placeholder
             })}
