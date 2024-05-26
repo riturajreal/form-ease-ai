@@ -145,10 +145,12 @@ const EditForm = ({ params }) => {
         <ArrowLeft /> Back
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+
         {/* Controller */}
         <div className="p-5 border rounded-lg shadow-lg">
           <Controller
 
+// Theme
             selectedTheme={(value) => {
               // to reflect in DB
               updateControllerFields(value, "theme");
@@ -156,11 +158,12 @@ const EditForm = ({ params }) => {
               setSelectedTheme(value);
             }}
 
+// Background
             selectedBackground={(value) => {
               updateControllerFields(value, "background");
             setSelectedBackground(value)}
             }
-
+// Style
             selectedStyle={(value) => {
               setSelectedStyle(value);
               updateControllerFields(value, 'style')
