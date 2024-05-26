@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import FormUi from "../_components/FormUi";
 
+
 const EditForm = ({ params }) => {
   // params return form ID
 
@@ -51,6 +52,8 @@ const EditForm = ({ params }) => {
     console.log(JSON.parse(result[0].jsonform));
   };
 
+
+  // EDIT
   // onFieldUpdate --> change value according to index
   // changing label and placeholder
 
@@ -76,11 +79,28 @@ const EditForm = ({ params }) => {
     const result = await db.update(JsonForms)
     .set({
       jsonform:jsonForm
-    }).where(and (eq(JsonForms.id, record.id )
-    , eq(JsonForms.createdBy,user?.primaryEmailAddress?.emailAddress)));
+    })
+    .where(
+      and (
+      eq(JsonForms.id, record.id )
+    , eq(JsonForms.createdBy,user?.primaryEmailAddress?.emailAddress)
+  )
+);
 
-    console.log(result);
+    // console.log(result);
   }
+
+
+  // DELETE
+  const deleteField=(indexToRemove)=> {
+    const result = jsonForm.fields.filter((item, index)=> index != indexToRemove);
+    // console.log(result);
+
+    jsonForm.fields = result;
+    setUpdateTrigger(Date.now);
+  }
+
+
 
   return (
     <div className="p-10">
@@ -96,7 +116,10 @@ const EditForm = ({ params }) => {
 
         {/* Form */}
         <div className="md:col-span-2  p-5 h-screen border rounded-lg flex items-center justify-center">
-          <FormUi jsonForm={jsonForm} onFieldUpdate={onFieldUpdate} />
+          <FormUi jsonForm={jsonForm} 
+          onFieldUpdate={onFieldUpdate}
+          deleteField={(index)=> deleteField(index)}
+           />
         </div>
       </div>
     </div>

@@ -14,14 +14,14 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import FieldEdit from "./FieldEdit";
 
-const FormUi = ({ jsonForm, onFieldUpdate }) => {
+const FormUi = ({ jsonForm, onFieldUpdate, deleteField }) => {
 
 
   return (
     <div className="border rounded-lg p-5 md:w-[600px]">
       <h2 className="font-bold text-center text-2xl">{jsonForm?.formTitle}</h2>
       <h3 className="text-sm text-gray-500 mb-5 text-center">
-        {jsonForm?.formSubheading}
+        {jsonForm?.formHeading}
       </h3>
 
       {jsonForm?.fields?.map((field, index) => (
@@ -85,6 +85,7 @@ const FormUi = ({ jsonForm, onFieldUpdate }) => {
           <div>
             <FieldEdit defaultValue={field}
               onUpdate={(value)=> onFieldUpdate(value,index)}
+              deleteField={()=>deleteField(index)}
             />
           </div>
         </div>
