@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import React from "react";
+import React, { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -13,10 +13,22 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import FieldEdit from "./FieldEdit";
-import { Button } from "@/components/ui/button";
+
 
 const FormUi = ({ jsonForm, onFieldUpdate, deleteField, selectedTheme, selectedStyle , editable=true}) => {
 
+  const [formData, setFormData] = useState();
+  
+  
+  // handle input change
+  const handleInputChange= (event)=> {
+    const {name, value} =e.target;
+
+    setFormData({
+      ...formData,
+      [name]:value
+    })
+  }
 
   return (
     <div className="border rounded-md p-5 md:w-[600px]" data-theme={selectedTheme} 
