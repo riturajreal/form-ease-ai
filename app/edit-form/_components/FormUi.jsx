@@ -13,12 +13,13 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import FieldEdit from "./FieldEdit";
+import { Button } from "@/components/ui/button";
 
-const FormUi = ({ jsonForm, onFieldUpdate, deleteField }) => {
+const FormUi = ({ jsonForm, onFieldUpdate, deleteField, selectedTheme }) => {
 
 
   return (
-    <div className="border rounded-lg p-5 md:w-[600px]">
+    <div className="border rounded-xl p-5 md:w-[600px]" data-theme={selectedTheme}>
       <h2 className="font-bold text-center text-2xl">{jsonForm?.formTitle}</h2>
       <h3 className="text-sm text-gray-500 mb-5 text-center">
         {jsonForm?.formHeading}
@@ -31,7 +32,7 @@ const FormUi = ({ jsonForm, onFieldUpdate, deleteField }) => {
             <div className="my-3 w-full">
               <label className="text-xs text-gray-500">{field.label}</label>
               <Select>
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full bg-transparent">
                   <SelectValue placeholder={field.placeholder} />
                 </SelectTrigger>
                 <SelectContent>
@@ -75,7 +76,7 @@ const FormUi = ({ jsonForm, onFieldUpdate, deleteField }) => {
           ) : (
             <div className="my-3 w-full">
               <label className="text-xs text-gray-500">{field?.label}</label>
-              <Input
+              <Input className='bg-transparent'
                 type={field?.fieldType}
                 placeholder={field?.placeholder}
                 name={field?.fieldName}
@@ -90,6 +91,8 @@ const FormUi = ({ jsonForm, onFieldUpdate, deleteField }) => {
           </div>
         </div>
       ))}
+
+    <button className="btn btn-primary">Submit</button>
     </div>
   );
 };

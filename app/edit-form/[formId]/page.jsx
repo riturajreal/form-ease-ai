@@ -7,6 +7,8 @@ import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import FormUi from "../_components/FormUi";
+import { toast } from "sonner";
+import Controller from "../_components/Controller";
 
 
 const EditForm = ({ params }) => {
@@ -26,6 +28,9 @@ const EditForm = ({ params }) => {
 
   // store record
   const [record, setRecord] = useState([]);
+
+  // theme
+  const [selectedTheme, setSelectedTheme]= useState('light');
 
   useEffect(() => {
     user && GetFormData();
@@ -49,7 +54,7 @@ const EditForm = ({ params }) => {
     // update jsonForm hook -- parse json
     setJsonForm(JSON.parse(result[0].jsonform));
     setRecord(result[0]);
-    console.log(JSON.parse(result[0].jsonform));
+    // console.log(JSON.parse(result[0].jsonform));
   };
 
 
@@ -86,7 +91,7 @@ const EditForm = ({ params }) => {
     , eq(JsonForms.createdBy,user?.primaryEmailAddress?.emailAddress)
   )
 );
-
+    toast('Updated Successfully');
     // console.log(result);
   }
 
@@ -98,6 +103,7 @@ const EditForm = ({ params }) => {
 
     jsonForm.fields = result;
     setUpdateTrigger(Date.now);
+    toast('Deleted Successfully');
   }
 
 
@@ -112,11 +118,14 @@ const EditForm = ({ params }) => {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* Controller */}
-        <div className="p-5 border rounded-lg shadow-md">Controller</div>
+        <div className="p-5 border rounded-lg shadow-md">
+          <Controller selectedTheme={(value)=> setSelectedTheme(value) }/>
+        </div>
 
         {/* Form */}
-        <div className="md:col-span-2  p-5 h-screen border rounded-lg flex items-center justify-center">
+        <div className="md:col-span-2 p-5 border rounded-lg flex  justify-center">
           <FormUi jsonForm={jsonForm} 
+          selectedTheme = {selectedTheme}
           onFieldUpdate={onFieldUpdate}
           deleteField={(index)=> deleteField(index)}
            />
