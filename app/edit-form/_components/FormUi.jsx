@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -13,11 +13,24 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import FieldEdit from "./FieldEdit";
+import { userResponses } from "@/configs/schema";
+import moment from "moment";
+import { toast } from "sonner";
+import { db } from "@/configs";
+import { useUser } from "@clerk/nextjs";
 
 
-const FormUi = ({ jsonForm, onFieldUpdate, deleteField, selectedTheme, selectedStyle , editable=true}) => {
+const FormUi = ({ jsonForm, onFieldUpdate, deleteField, selectedTheme, selectedStyle , editable=true, formId=0}) => {
 
+// current user
+const {user} = useUser();
+
+
+  // Form Response
   const [formData, setFormData] = useState();
+
+  // to reset form
+  let formRef = useRef();
   
   
   // handle Input Field change
@@ -81,13 +94,31 @@ const handleCheckboxChange=(fieldName, itemName, value )=> {
 
 
   // onSubmit
-  const onFormSubmit=(event)=> {
+  const onFormSubmit=async(event)=> {
     event.preventDefault()
-    console.log(formData);
+    // console.log(formData);
+
+    // store updated data in DB
+    const result=await db.insert(userResponses)
+    .values({
+      jsonResponse:formData,
+      createdAt:moment().format('DD/MM/yyyy'),
+      formRef:formId
+    })
+
+    if (result) {
+      formRef.reset();
+      toast('Response Submitted Successfully')
+    }else{
+      toast.error('Error while saving your form');
+    }
+
+    
   }
 
   return (
     <form 
+    ref={(e)=> formRef=e}
     onSubmit={onFormSubmit}
     className="border rounded-md p-5 md:w-[600px]" data-theme={selectedTheme} 
     style={{
