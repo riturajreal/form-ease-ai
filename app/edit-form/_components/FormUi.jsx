@@ -44,7 +44,37 @@ const handleSelectChange=(name, value)=> {
 
 // handle Checkbox Change
 const handleCheckboxChange=(fieldName, itemName, value )=> {
-  console.log(fieldName, itemName, value);
+  // console.log(fieldName, itemName, value);
+
+  // create a list to store values for checkbox if not exist then create a new list
+  const list = formData?.[fieldName] ? formData?.[fieldName] : [];
+
+
+
+  // Add values in list
+  if(value) {
+    list.push({
+      label:itemName,
+      value:value
+    })
+
+    // set list to field name
+    setFormData({
+      ...formData,
+      [fieldName] : list
+    })
+  }
+
+  // remove values form list
+  else{
+
+    // filter unchecked value
+    const result = list.filter((item)=> item.label == itemName);
+    setFormData({
+      ...formData,
+      [fieldName] : result
+    })
+  }
 }
 
 
@@ -110,7 +140,7 @@ const handleCheckboxChange=(fieldName, itemName, value )=> {
               {field?.options ? (
                 field?.options?.map((item, index) => (
                   <div key={index} className="flex gap-2 items-center">
-                    <Checkbox onCheckedChange={(v)=> handleCheckboxChange(field?.label, item, v)} />
+                    <Checkbox onCheckedChange={(v)=>handleCheckboxChange(field?.label,item.label?item.label:item,v)} />
                     <h2>{item.label ? item.label : item}</h2>
                   </div>
                 ))
