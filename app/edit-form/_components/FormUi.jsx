@@ -20,7 +20,8 @@ import { db } from "@/configs";
 import { useUser } from "@clerk/nextjs";
 
 
-const FormUi = ({ jsonForm, onFieldUpdate, deleteField, selectedTheme, selectedStyle , editable=true, formId=0}) => {
+const FormUi = ({ jsonForm,selectedTheme,selectedStyle, 
+  onFieldUpdate,deleteField,editable=true,formId=0}) => {
 
 // current user
 const {user} = useUser();
@@ -93,28 +94,27 @@ const handleCheckboxChange=(fieldName, itemName, value )=> {
 
 
 
-  // onSubmit
-  const onFormSubmit=async(event)=> {
-    event.preventDefault()
-    // console.log(formData);
+const onFormSubmit=async(event)=>{
+  event.preventDefault()
+  console.log(formData);
 
-    // store updated data in DB
-    const result=await db.insert(userResponses)
-    .values({
-      jsonResponse:formData,
-      createdAt:moment().format('DD/MM/yyyy'),
-      formRef:formId
-    })
+  const result=await db.insert(userResponses)
+  .values({
+    jsonResponse:formData,
+    createdAt:moment().format('DD/MM/yyy'),
+    formRef:formId
+  })
 
-    if (result) {
-      formRef.reset();
-      toast('Response Submitted Successfully')
-    }else{
-      toast.error('Error while saving your form');
-    }
-
-    
+  if(result)
+  {
+    formRef.reset();
+    toast('Response Submitted Successfully !')
   }
+  else{
+    toast('Error while saving your form !')
+
+  }
+}
 
   return (
     <form 
