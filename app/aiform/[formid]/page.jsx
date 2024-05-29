@@ -43,7 +43,7 @@ const LiveAiForm = ({ params }) => {
           selectedStyle={JSON.parse(record.style)}
           selectedTheme={record?.theme}
           editable={false}
-          formid = {record?.id}
+          formId = {record?.id}
         />
       )}
 

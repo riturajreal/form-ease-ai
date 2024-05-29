@@ -196,6 +196,7 @@ const EditForm = ({ params }) => {
             selectedStyle={selectedStyle}
             onFieldUpdate={onFieldUpdate}
             deleteField={(index) => deleteField(index)}
+            formId = {record?.id}
           />
         </div>
       </div>

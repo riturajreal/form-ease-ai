@@ -97,6 +97,7 @@ const handleCheckboxChange=(fieldName, itemName, value )=> {
 const onFormSubmit=async(event)=>{
   event.preventDefault()
   console.log(formData);
+  console.log(formId);
 
   const result=await db.insert(userResponses)
   .values({
