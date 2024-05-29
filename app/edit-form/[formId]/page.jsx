@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import Controller from "../_components/Controller";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { RWebShare } from "react-web-share";
 
 const EditForm = ({ params }) => {
   // params return form ID
@@ -155,7 +156,23 @@ const EditForm = ({ params }) => {
       <Button variant='outline' className='flex items-center gap-2'><SquareArrowOutUpRight className="h-5 w-5"/> Live Preview</Button>
       </Link>
        
-        <Button className='flex items-center gap-2 bg-gray-900 hover:bg-gray-950'><Share2 className="h-5 w-5"/>Share</Button>
+        {/* Web share */}
+      <RWebShare
+        data={{
+          text: jsonForm?.formHeading + "Build your form in seconds using AI Builder",
+          url: process.env.NEXT_PUBLIC_BASE_URL+"/aiform/"+record?.id,
+          title: jsonForm?.formTitle,
+        }}
+        disableNative={true}
+        onClick={() => console.log("shared successfully!")}
+      >
+        <Button
+          className="flex items-center gap-2 bg-gray-700 hover:bg-gray-950 "
+        >
+          <Share2 className="h-5 w-5" /> Share
+        </Button>
+      </RWebShare>
+
       </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
