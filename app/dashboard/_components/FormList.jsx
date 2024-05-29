@@ -29,12 +29,16 @@ const FormList = () => {
         console.log(result);
     }
   return (
-    <div className='mt-5 grid grid-cols-2 md:grid-cols-3 gap-5'>
+    <div className='my-5 grid grid-cols-2 lg:grid-cols-3 gap-5'>
     
     {formList.map((form,index)=>(
             <div key={index}>
                 <FormListItem 
                 jsonForm={JSON.parse(form.jsonform)}
+                formRecord  = {form}
+                // to refresh form after deletion
+                refreshData={GetFormList}
+
                 />
            </div>
         ))}
