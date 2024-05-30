@@ -11,8 +11,9 @@ import Themes from "@/app/_data/Themes";
 import GradientBg from "@/app/_data/GradientBg";
 import { Button } from "@/components/ui/button";
 import Style from "@/app/_data/Style";
+import { Checkbox } from "@/components/ui/checkbox";
 
-const Controller = ({ selectedTheme, selectedBackground, selectedStyle }) => {
+const Controller = ({ selectedTheme, selectedBackground, selectedStyle,setSignInEnabled  }) => {
   const [showMore, setShowMore] = useState(6);
 
   return (
@@ -108,6 +109,11 @@ const Controller = ({ selectedTheme, selectedBackground, selectedStyle }) => {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* for social auth check */}
+      <div className="my-10 flex items-center gap-2">
+        <Checkbox onCheckedChange={(e)=> setSignInEnabled(e)} /> <h2>Enable Social Authentication before submitting</h2>
       </div>
     </div>
   );
