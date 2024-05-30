@@ -17,14 +17,15 @@ import { userResponses } from "@/configs/schema";
 import moment from "moment";
 import { toast } from "sonner";
 import { db } from "@/configs";
-import { useUser } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 
 
 const FormUi = ({ jsonForm,selectedTheme,selectedStyle, 
-  onFieldUpdate,deleteField,editable=true,formId=0}) => {
+  onFieldUpdate,deleteField,editable=true,formId=0,enabledSignIn=false}) => {
 
 // current user
-const {user} = useUser();
+const {user, isSignedIn} = useUser();
 
 
   // Form Response
@@ -210,7 +211,16 @@ const onFormSubmit=async(event)=>{
       ))}
 
 {/* SUBMIT BUTTOM */}
-    <button type='submit' className="btn btn-primary">Submit</button>
+
+{!enabledSignIn ? <button type='submit' className="btn btn-primary">Submit</button>:  
+isSignedIn&&enabledSignIn ? 
+<button type='submit' className="btn btn-primary">Submit</button> : 
+<Button>
+  <SignInButton mode='modal'>Sign in before Submit</SignInButton>
+</Button>
+}
+
+
     </form>
   );
 };

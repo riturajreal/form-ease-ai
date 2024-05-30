@@ -1,6 +1,5 @@
-import { boolean } from "drizzle-orm/mysql-core";
 
-const { pgTable, serial, text, varchar, integer } = require("drizzle-orm/pg-core");
+const { pgTable, serial, text, varchar, integer, boolean } = require("drizzle-orm/pg-core");
 
 export const JsonForms = pgTable('jsonForms', {
     id:serial('id').primaryKey(),
