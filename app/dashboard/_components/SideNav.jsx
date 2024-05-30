@@ -1,11 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { db } from "@/configs";
+import { JsonForms } from "@/configs/schema";
+import { useUser } from "@clerk/nextjs";
+import { desc, eq } from "drizzle-orm";
 import { LibraryBig, LineChart, MessageSquare, Shield } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const SideNav = () => {
+
+  
+
   const menuList = [
     {
       id: 1,
@@ -36,11 +43,33 @@ const SideNav = () => {
     },
   ];
 
+  const {user} = useUser();
+  const [formList, setFormList] = useState();
+  const [PercFileCreated, setPercFileCreated] = useState(0);
+
   const path = usePathname();
   useEffect(() => {
+    user && GetFormList();
     // consoles the current path of browser that used for active tab
     //console.log(path);
-  }, [path]);
+  }, [user]);
+
+
+  // Get form details
+  const GetFormList = async()=> {
+    const result = await db.select().from(JsonForms)
+    .where(
+        eq(JsonForms.createdBy, user?.primaryEmailAddress?.emailAddress)
+    ).orderBy(desc(JsonForms.id));
+
+    setFormList(result);
+    console.log(result);
+
+    // left form to be created
+    const perc = (result.length/3) *100
+    setPercFileCreated(perc);
+}
+
 
   return (
     <div className="h-screen shadow-md border">
@@ -69,9 +98,9 @@ const SideNav = () => {
         <Button className="w-full">+ Create Form</Button>
 
         <div className="my-5">
-          <Progress value={33} />
+          <Progress value={PercFileCreated} />
           <h2 className="text-sm mt-2 text-gray-600">
-            <strong>2 </strong>Out of<strong>3 </strong>File Created
+            <strong>{formList?.length} </strong>Out of <strong>3 </strong>File Created
           </h2>
 
           <h2 className="text-sm mt-3 text-gray-600">
