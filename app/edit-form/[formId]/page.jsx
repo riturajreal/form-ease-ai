@@ -142,7 +142,7 @@ const EditForm = ({ params }) => {
   return (
     <div className="p-10">
 
-    <div className="flex items-center justify-between">
+    <div className="md:flex items-center justify-between">
       <h2
         onClick={() => router.back()}
         className="flex gap-2 items-center my-5 cursor-pointer hover:font-semibold transition-all"
@@ -151,7 +151,7 @@ const EditForm = ({ params }) => {
       </h2>
 
 {/* Controls */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between gap-2 mb-4">
       <Link href={'/aiform/'+record?.id} target='_blank'>
       <Button variant='outline' className='flex items-center gap-2'><SquareArrowOutUpRight className="h-5 w-5"/> Live Preview</Button>
       </Link>

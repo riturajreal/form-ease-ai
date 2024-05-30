@@ -122,7 +122,7 @@ const onFormSubmit=async(event)=>{
     <form 
     ref={(e)=> formRef=e}
     onSubmit={onFormSubmit}
-    className="border rounded-md p-5 md:w-[600px]" data-theme={selectedTheme} 
+    className="border rounded-md p-5 md:w-[720px]" data-theme={selectedTheme} 
     style={{
       boxShadow: selectedStyle?.key=='boxshadow'&& '5px 5px 0px black',
       border:selectedStyle?.key=='border'&&selectedStyle.value
