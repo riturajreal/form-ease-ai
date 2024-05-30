@@ -20,7 +20,7 @@ const Header = () => {
         <div className='flex items-center justify-between'>
 
         <Link href='/'>
-            <Image src={'/logo.svg'} width={180} height={50} alt='logo' />
+            <Image src={'/logo.png'} width={200} height={40} alt='logo' />
         </Link>            
         
         { isSignedIn?

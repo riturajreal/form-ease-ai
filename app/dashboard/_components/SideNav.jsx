@@ -28,13 +28,7 @@ const SideNav = () => {
       path: "/dashboard/responses",
     },
 
-    {
-      id: 3,
-      name: "Analytics",
-      icon: LineChart,
-      path: "/dashboard/analytics",
-    },
-
+  
     {
       id: 4,
       name: "Upgrade",
@@ -66,7 +60,7 @@ const SideNav = () => {
     console.log(result);
 
     // left form to be created
-    const perc = (result.length/3) *100
+    const perc = (result.length/10) *100
     setPercFileCreated(perc);
 }
 
@@ -100,7 +94,7 @@ const SideNav = () => {
         <div className="my-5">
           <Progress value={PercFileCreated} />
           <h2 className="text-sm mt-2 text-gray-600">
-            <strong>{formList?.length} </strong>Out of <strong>3 </strong>File Created
+            <strong>{formList?.length} </strong>Out of <strong>10 </strong>File Created
           </h2>
 
           <h2 className="text-sm mt-3 text-gray-600">

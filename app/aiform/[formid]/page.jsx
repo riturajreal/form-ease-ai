@@ -30,11 +30,13 @@ const LiveAiForm = ({ params }) => {
 
   return (
     <div
-      className="p-6 h-screen mt-4 flex justify-center items-center"
+      className="p-6 h-screen mt-4 flex flex-col justify-center items-center"
       style={{
         backgroundImage: record?.background,
       }}
     >
+    <Image src={"/logo.png"} className="mb-4" width={260}  height={26} />
+
       {record && (
         <FormUi
           jsonForm={jsonForm}
@@ -56,7 +58,7 @@ const LiveAiForm = ({ params }) => {
          "
         href={'/'}
       >
-        <Image src={"/logo.svg"} width={26} height={26} />
+        <Image src={"/badge-logo.png"} width={26} height={26} />
         Build your Own AI form
       </Link>
     </div>

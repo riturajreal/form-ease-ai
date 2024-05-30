@@ -1,3 +1,5 @@
+import { Button } from '@/components/ui/button'
+import { SignInButton } from '@clerk/nextjs'
 import React from 'react'
 
 const Hero = () => {
@@ -17,19 +19,11 @@ const Hero = () => {
       </p>
 
       <div className="mt-8 flex flex-wrap justify-center gap-4">
-        <a
-          className="block w-full rounded bg-primary px-12 py-3 text-sm font-medium text-white shadow hover:bg-purple-600 focus:outline-none focus:ring active:bg-red-500 sm:w-auto"
-          href="#"
-        >
-          + Create AI Form
-        </a>
+        <Button size='lg'
+        className="block w-full px-12 py-3 text-sm font-medium text-white shadow sm:w-auto"
+        ><SignInButton>+ Create AI Form</SignInButton></Button> 
 
-        <a
-          className="block w-full rounded px-12 py-3 text-sm font-medium text-primary shadow hover:text-purple-600 focus:outline-none focus:ring active:text-red-500 sm:w-auto"
-          href="#"
-        >
-          Learn More
-        </a>
+        
       </div>
     </div>
   </div>
