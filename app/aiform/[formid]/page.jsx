@@ -30,7 +30,7 @@ const LiveAiForm = ({ params }) => {
 
   return (
     <div
-      className="p-10 h-screen flex justify-center items-center"
+      className="p-6 h-screen mt-4 flex justify-center items-center"
       style={{
         backgroundImage: record?.background,
       }}
