@@ -47,6 +47,11 @@ const [loading, setLoading] = useState(true);
           <Loader />
         </div>
 
+      )  : formList.length === 0 ? (
+        <div className="flex flex-col items-center justify-center col-span-2 lg:col-span-3 ">
+          <img src="/empty.gif" alt="Illustration" className="w-64 h-64 mb-4" />
+          <p className="font-semibold text-lg text-gray-900">No Responses</p>
+        </div>
 
     ) :
 

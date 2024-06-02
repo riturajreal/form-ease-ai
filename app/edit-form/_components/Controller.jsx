@@ -112,7 +112,7 @@ const Controller = ({ selectedTheme, selectedBackground, selectedStyle,setSignIn
       </div>
 
       {/* for social auth check */}
-      <div className="my-10 flex items-center gap-2">
+      <div className="mt-10 flex items-center gap-2">
         <Checkbox onCheckedChange={(e)=> setSignInEnabled(e)} /> <h2>Enable Social Authentication before submitting</h2>
       </div>
     </div>

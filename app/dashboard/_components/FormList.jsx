@@ -47,6 +47,12 @@ const FormList = () => {
           <Loader />
         </div>
 
+      )  : formList.length === 0 ? (
+        <div className="flex flex-col items-center justify-center col-span-2 lg:col-span-3 ">
+          <img src="/empty.gif" alt="Illustration" className="w-64 h-64 mb-4" />
+          <p className="font-semibold text-lg text-gray-900">You have not created any Form</p>
+          <p className="font-md text-gray-600">Create a new form to Get Started</p>
+        </div>
 
     ) :  formList.map((form,index)=>(
             <div key={index}>

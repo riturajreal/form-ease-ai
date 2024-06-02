@@ -19,6 +19,8 @@ import moment from 'moment'
 import { db } from '@/configs'
 import { useRouter } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
+import Confetti from 'react-dom-confetti';
+
 
   
 const PROMPT=",On Basis of description create JSON form with formTitle, formHeading along with fieldName, FieldTitle,FieldType, Placeholder, label , required fields, and checkbox and select field type options will be in array only and in JSON format"
@@ -31,6 +33,9 @@ const CreateForm = () => {
     const [loading, setLoading]= useState(false);
     const {user} = useUser();
     const route = useRouter();
+
+    const [confetti, setConfetti] = useState(false);
+
 
     // onCreate
     const onCreateFrom =async()=> {
@@ -52,7 +57,10 @@ const CreateForm = () => {
 
         // redirecting to form using router
         if(resp[0].id){
-          route.push('/edit-form/'+resp[0].id);
+          setConfetti(true); // Trigger confetti animation
+  setTimeout(() => {
+    route.push('/edit-form/' + resp[0].id); // Redirect after a delay
+  }, 1000); // Delay time in milliseconds
         }
 
         setLoading(false);
@@ -86,6 +94,18 @@ const CreateForm = () => {
       </DialogHeader>
     </DialogContent>
   </Dialog>
+ <Confetti
+  active={confetti}
+  config={{
+    angle: 90,
+    spread: 360,
+    startVelocity: 40,
+    elementCount: 200,
+    decay: 0.95,
+    zIndex: 1000,
+  }}
+/>
+
   </div>
   )
 }

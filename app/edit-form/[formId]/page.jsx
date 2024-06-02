@@ -178,7 +178,7 @@ const EditForm = ({ params }) => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
         {/* Controller */}
-        <div className="p-5 border rounded-lg shadow-lg">
+        <div className="p-5 border h-fit rounded-lg shadow-lg">
           <Controller
 
 // Theme
